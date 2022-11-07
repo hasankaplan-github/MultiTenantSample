@@ -1,7 +1,5 @@
 ﻿using Haskap.DddBase.Domain.Providers;
 using Haskap.DddBase.Domain.TenantAggregate;
-using Haskap.DddBase.Infra.Providers;
-using MultiTenantSample.Application.Contracts;
 
 namespace MultiTenantSample.Ui.MvcWebUi.Middlewares;
 

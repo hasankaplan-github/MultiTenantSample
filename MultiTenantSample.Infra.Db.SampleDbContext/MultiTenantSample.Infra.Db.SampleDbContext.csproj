@@ -29,9 +29,6 @@
     <Reference Include="Haskap.DddBase.Infra.Db.EntityTypeConfigurations">
       <HintPath>..\References\Haskap.DddBase.Infra.Db.EntityTypeConfigurations.dll</HintPath>
     </Reference>
-    <Reference Include="Haskap.DddBase.Infra.Providers">
-      <HintPath>..\References\Haskap.DddBase.Infra.Providers.dll</HintPath>
-    </Reference>
     <Reference Include="Haskap.DddBase.Utilities">
       <HintPath>..\References\Haskap.DddBase.Utilities.dll</HintPath>
     </Reference>

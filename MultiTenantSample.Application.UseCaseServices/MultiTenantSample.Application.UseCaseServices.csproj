@@ -18,9 +18,6 @@
     <Reference Include="Haskap.DddBase.Domain.Providers">
       <HintPath>..\References\Haskap.DddBase.Domain.Providers.dll</HintPath>
     </Reference>
-    <Reference Include="Haskap.DddBase.Infra.Providers">
-      <HintPath>..\References\Haskap.DddBase.Infra.Providers.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
 </Project>
