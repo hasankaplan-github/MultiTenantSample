@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "Haskap.DddBase.Application.UseCaseServices/1.0.0": {
+        "dependencies": {
+          "Haskap.DddBase.Application.Contracts": "1.0.0"
+        },
+        "runtime": {
+          "Haskap.DddBase.Application.UseCaseServices.dll": {}
+        }
+      },
+      "Haskap.DddBase.Application.Contracts/1.0.0": {
+        "runtime": {
+          "Haskap.DddBase.Application.Contracts.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Haskap.DddBase.Application.UseCaseServices/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Haskap.DddBase.Application.Contracts/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

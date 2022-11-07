@@ -1,0 +1,21 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<form asp-action="Login">
+    <label for="tenantSelect"></label>
+    <select name="tenantId" id="tenantSelect" asp-items="@ViewBag.Tenants" class="form-control">
+        <option>Seçiniz...</option>
+    </select>
+    <br />
+    <label for="usernameInput"></label>
+    <input name="username" id="usernameInput" type="text" value="guest" />
+    <br />
+    <label for="passwordInput"></label>
+    <input name="password" id="passwordInput" type="password" value="guest" />
+    <br />
+    <input type="submit" />
+</form>
+

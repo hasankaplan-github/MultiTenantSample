@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MultiTenantSample.Application.Contracts\MultiTenantSample.Application.Contracts.csproj" />
+    <ProjectReference Include="..\MultiTenantSample.Infra.Db.SampleDbContext\MultiTenantSample.Infra.Db.SampleDbContext.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Haskap.DddBase.Domain">
+      <HintPath>..\References\Haskap.DddBase.Domain.dll</HintPath>
+    </Reference>
+    <Reference Include="Haskap.DddBase.Domain.Providers">
+      <HintPath>..\References\Haskap.DddBase.Domain.Providers.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

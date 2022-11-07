@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EFCore.NamingConventions" Version="6.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MultiTenantSample.Application.Contracts\MultiTenantSample.Application.Contracts.csproj" />
+    <ProjectReference Include="..\MultiTenantSample.Application.Dtos\MultiTenantSample.Application.Dtos.csproj" />
+    <ProjectReference Include="..\MultiTenantSample.Application.UseCaseServices\MultiTenantSample.Application.UseCaseServices.csproj" />
+    <ProjectReference Include="..\MultiTenantSample.Domain\MultiTenantSample.Domain.csproj" />
+    <ProjectReference Include="..\MultiTenantSample.Infra.Db.SampleDbContext\MultiTenantSample.Infra.Db.SampleDbContext.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Haskap.DddBase.Domain">
+      <HintPath>..\References\Haskap.DddBase.Domain.dll</HintPath>
+    </Reference>
+    <Reference Include="Haskap.DddBase.Domain.Providers">
+      <HintPath>..\References\Haskap.DddBase.Domain.Providers.dll</HintPath>
+    </Reference>
+    <Reference Include="Haskap.DddBase.Infra.Db.Contexts.NpgsqlDbContext">
+      <HintPath>..\References\Haskap.DddBase.Infra.Db.Contexts.NpgsqlDbContext.dll</HintPath>
+    </Reference>
+    <Reference Include="Haskap.DddBase.Infra.Providers">
+      <HintPath>..\References\Haskap.DddBase.Infra.Providers.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
