@@ -1,4 +1,5 @@
-﻿using Haskap.DddBase.Domain.TenantAggregate;
+﻿using Haskap.DddBase.Domain.Providers;
+using Haskap.DddBase.Domain.TenantAggregate;
 using Haskap.DddBase.Infra.Db.Contexts.NpgsqlDbContext;
 using Microsoft.EntityFrameworkCore;
 using MultiTenantSample.Domain;
@@ -8,7 +9,10 @@ using System.Reflection.Emit;
 namespace MultiTenantSample.Infra.Db.SampleDbContext;
 public class AppDbContext : BaseEfCoreNpgsqlDbContext
 {
-    public AppDbContext(DbContextOptions<AppDbContext> options)
+    private Guid? _tenantId => CurrentTenantProvider.CurrentTenantId;
+
+    public AppDbContext(
+        DbContextOptions<AppDbContext> options)
         : base(options)
     {
     }
@@ -16,6 +20,10 @@ public class AppDbContext : BaseEfCoreNpgsqlDbContext
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
+
+        builder.Entity<SomeTenantDataClass>().HasQueryFilter(x => x.TenantId == _tenantId);
+        builder.Entity<User>().HasQueryFilter(x => x.TenantId == _tenantId);
+
         base.OnModelCreating(builder);
     }
 

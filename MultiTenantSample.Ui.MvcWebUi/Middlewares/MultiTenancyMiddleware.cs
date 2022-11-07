@@ -1,5 +1,6 @@
 ﻿using Haskap.DddBase.Domain.Providers;
 using Haskap.DddBase.Domain.TenantAggregate;
+using Haskap.DddBase.Infra.Providers;
 using MultiTenantSample.Application.Contracts;
 
 namespace MultiTenantSample.Ui.MvcWebUi.Middlewares;
@@ -7,26 +8,21 @@ namespace MultiTenantSample.Ui.MvcWebUi.Middlewares;
 public class MultiTenancyMiddleware
 {
     private readonly RequestDelegate _next;
-    private ITenantService _tenantService;
 
     public MultiTenancyMiddleware(RequestDelegate next)
     {
         _next = next;
     }
 
-    public async Task Invoke(
-        HttpContext httpContext, 
-        ICurrentTenantProvider currentTenantProvider, 
-        ITenantService tenantService)
+    public async Task Invoke(HttpContext httpContext)
     {
-        _tenantService = tenantService;
-        using (currentTenantProvider.ChangeCurrentTenant(FindTenant(httpContext)))
+        using (CurrentTenantProvider.ChangeCurrentTenant(FindTenant(httpContext)))
         {
             await _next(httpContext);
         }
     }
 
-    private Tenant? FindTenant(HttpContext httpContext)
+    private Guid? FindTenant(HttpContext httpContext)
     {
         var tenantIdString = FindFromClaims(httpContext) ??
                        FindFromDomain(httpContext) ??
@@ -35,15 +31,12 @@ public class MultiTenancyMiddleware
 
         if (tenantIdString == null)
         {
-            return Tenant.EmptyTenant;
+            return Tenant.EmptyTenantId;
         }
 
         var tenantId = Guid.Parse(tenantIdString);
 
-        var currentTenantDto = _tenantService.GetTenantById(tenantId);
-        var currentTenant = new Tenant(currentTenantDto.TenantId, currentTenantDto.TenantName);
-
-        return currentTenant;
+        return tenantId;
     }
 
     private string? FindFromClaims(HttpContext httpContext)

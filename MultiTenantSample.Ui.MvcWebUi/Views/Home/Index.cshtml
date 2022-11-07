@@ -1,8 +1,17 @@
-﻿@{
+﻿@using Haskap.DddBase.Domain.TenantAggregate
+@using MultiTenantSample.Application.Dtos
+@{
     ViewData["Title"] = "Home Page";
+
+    var currentTenantDto = ViewBag.CurrentTenantDto as TenantDto;
+    var someDataDto = ViewBag.SomeDataDto as SomeDataDto;
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h4>Current Tenant</h4>
+    <p>Tenant Id: @currentTenantDto?.TenantId.ToString()</p>
+    <p>Tenant Name: @currentTenantDto?.TenantName</p>
+    <p>Some Data: @someDataDto?.MyProperty</p>
 </div>

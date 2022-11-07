@@ -21,14 +21,14 @@ builder.Services.AddDbContext<AppDbContext>((serviceProvider, options) =>
     //options.AddInterceptors(serviceProvider.GetRequiredService<AuditHistoryLogSaveChangesInterceptor<Guid?>>());
 });
 
-builder.Services.AddControllersWithViews();
-
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
         options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
         options.SlidingExpiration = true;
     });
+
+builder.Services.AddControllersWithViews();
 
 
 var app = builder.Build();
@@ -41,6 +41,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -49,8 +50,8 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-
 app.UseMiddleware<MultiTenancyMiddleware>();
+
 
 app.MapControllerRoute(
     name: "default",

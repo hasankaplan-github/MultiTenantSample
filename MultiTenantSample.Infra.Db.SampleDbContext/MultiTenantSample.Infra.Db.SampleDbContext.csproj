@@ -20,11 +20,17 @@
     <Reference Include="Haskap.DddBase.Domain">
       <HintPath>..\References\Haskap.DddBase.Domain.dll</HintPath>
     </Reference>
+    <Reference Include="Haskap.DddBase.Domain.Providers">
+      <HintPath>..\References\Haskap.DddBase.Domain.Providers.dll</HintPath>
+    </Reference>
     <Reference Include="Haskap.DddBase.Infra.Db.Contexts.NpgsqlDbContext">
       <HintPath>..\References\Haskap.DddBase.Infra.Db.Contexts.NpgsqlDbContext.dll</HintPath>
     </Reference>
     <Reference Include="Haskap.DddBase.Infra.Db.EntityTypeConfigurations">
       <HintPath>..\References\Haskap.DddBase.Infra.Db.EntityTypeConfigurations.dll</HintPath>
+    </Reference>
+    <Reference Include="Haskap.DddBase.Infra.Providers">
+      <HintPath>..\References\Haskap.DddBase.Infra.Providers.dll</HintPath>
     </Reference>
     <Reference Include="Haskap.DddBase.Utilities">
       <HintPath>..\References\Haskap.DddBase.Utilities.dll</HintPath>

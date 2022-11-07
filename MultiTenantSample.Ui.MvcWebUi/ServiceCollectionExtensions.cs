@@ -15,6 +15,7 @@ public static class ServiceCollectionExtensions
     {
         services.AddTransient<ITenantService, TenantService>();
         services.AddTransient<IAccountService, AccountService>();
+        services.AddTransient<ISomeService, SomeService>();
     }
 
     public static void AddProviders(this IServiceCollection services)
