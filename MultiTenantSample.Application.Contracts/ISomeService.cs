@@ -9,4 +9,5 @@ namespace MultiTenantSample.Application.Contracts;
 public interface ISomeService
 {
     SomeDataDto GetSomeData();
+    int GetSomeDataCount();
 }

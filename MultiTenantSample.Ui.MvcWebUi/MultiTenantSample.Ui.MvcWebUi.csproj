@@ -8,11 +8,11 @@
 
   <ItemGroup>
     <PackageReference Include="EFCore.NamingConventions" Version="6.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.10">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.11">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.10">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.11">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -33,6 +33,9 @@
     </Reference>
     <Reference Include="Haskap.DddBase.Domain.Providers">
       <HintPath>..\References\Haskap.DddBase.Domain.Providers.dll</HintPath>
+    </Reference>
+    <Reference Include="Haskap.DddBase.Infra.Db.Contexts.EfCoreContext">
+      <HintPath>..\References\Haskap.DddBase.Infra.Db.Contexts.EfCoreContext.dll</HintPath>
     </Reference>
     <Reference Include="Haskap.DddBase.Infra.Db.Contexts.NpgsqlDbContext">
       <HintPath>..\References\Haskap.DddBase.Infra.Db.Contexts.NpgsqlDbContext.dll</HintPath>

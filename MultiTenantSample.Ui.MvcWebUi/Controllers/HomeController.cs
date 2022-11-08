@@ -29,10 +29,14 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        if (_currentTenantProvider.CurrentTenantId.HasValue)
+        if (_currentTenantProvider.MultiTenancyIsEnabled)
         {
             ViewBag.CurrentTenantDto = _tenantService.GetTenantById(_currentTenantProvider.CurrentTenantId.Value);
             ViewBag.SomeDataDto = _someService.GetSomeData();
+            using (_currentTenantProvider.DisableMultiTenancy())
+            {
+                ViewBag.SomeDataCount = _someService.GetSomeDataCount();
+            }
         }
         
         return View();

@@ -27,4 +27,10 @@ public class SomeService : ISomeService
             .First();
             
     }
+
+    public int GetSomeDataCount()
+    {
+        return _appDbContext.SomeTenantDataClass
+            .Count();
+    }
 }
