@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Net;
 
 namespace MultiTenantSample.Domain;
-public class UserNotFoundException : GeneralException
+public class UserNotFoundException : DomainException
 {
     public UserNotFoundException()
         : base("__L__UserNotFound__L__", HttpStatusCode.BadRequest)

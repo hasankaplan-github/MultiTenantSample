@@ -10,7 +10,7 @@ namespace MultiTenantSample.Infra.Db.SampleDbContext;
 public class AppDbContext : BaseEfCoreNpgsqlDbContext
 {
     private readonly ICurrentTenantProvider _currentTenantProvider;
-    private Guid? _tenantId => _currentTenantProvider.CurrentTenantId;
+    private Guid? _currentTenantId => _currentTenantProvider.CurrentTenantId;
 
     public AppDbContext(
         DbContextOptions<AppDbContext> options,
@@ -24,8 +24,8 @@ public class AppDbContext : BaseEfCoreNpgsqlDbContext
     {
         builder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
 
-        builder.Entity<SomeTenantDataClass>().HasQueryFilter(x => x.TenantId == _tenantId);
-        builder.Entity<User>().HasQueryFilter(x => x.TenantId == _tenantId);
+        builder.Entity<SomeTenantDataClass>().HasQueryFilter(x => x.TenantId == _currentTenantId);
+        builder.Entity<User>().HasQueryFilter(x => x.TenantId == _currentTenantId);
 
         base.OnModelCreating(builder);
     }

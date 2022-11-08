@@ -1,7 +1,7 @@
 ﻿using Haskap.DddBase.Domain;
 
 namespace MultiTenantSample.Domain;
-public class SomeTenantDataClass : AggregateRoot, IMultiTenant
+public class SomeTenantDataClass : AggregateRoot, IHasMultiTenant
 {
     public int MyProperty { get; private set; }
 	public Guid? TenantId { get; set; }

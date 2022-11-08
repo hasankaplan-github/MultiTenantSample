@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MultiTenantSample.Domain;
-public class User : AggregateRoot, IMultiTenant
+public class User : AggregateRoot, IHasMultiTenant
 {
 	public string Username { get; set; }
     public string Password { get; set; }

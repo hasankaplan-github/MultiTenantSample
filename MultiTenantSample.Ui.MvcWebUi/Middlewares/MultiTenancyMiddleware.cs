@@ -16,11 +16,6 @@ public class MultiTenancyMiddleware
         HttpContext httpContext,
         ICurrentTenantProvider currentTenantProvider)
     {
-        //using (CurrentTenantProvider.ChangeCurrentTenant(FindTenant(httpContext)))
-        //{
-        //    await _next(httpContext);
-        //}
-
         using (currentTenantProvider.ChangeCurrentTenant(FindTenant(httpContext)))
         {
             await _next(httpContext);
@@ -30,13 +25,13 @@ public class MultiTenancyMiddleware
     private Guid? FindTenant(HttpContext httpContext)
     {
         var tenantIdString = FindFromClaims(httpContext) ??
-                       FindFromDomain(httpContext) ??
-                       FindFromHeader(httpContext) ??
-                       FindFromCookie(httpContext);
+                            FindFromDomain(httpContext) ??
+                            FindFromHeader(httpContext) ??
+                            FindFromCookie(httpContext);
 
-        if (tenantIdString == null)
+        if (tenantIdString is null)
         {
-            return Tenant.EmptyTenantId;
+            return null;
         }
 
         var tenantId = Guid.Parse(tenantIdString);
