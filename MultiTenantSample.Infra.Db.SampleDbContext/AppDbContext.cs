@@ -9,12 +9,15 @@ using System.Reflection.Emit;
 namespace MultiTenantSample.Infra.Db.SampleDbContext;
 public class AppDbContext : BaseEfCoreNpgsqlDbContext
 {
-    private Guid? _tenantId => CurrentTenantProvider.CurrentTenantId;
+    private readonly ICurrentTenantProvider _currentTenantProvider;
+    private Guid? _tenantId => _currentTenantProvider.CurrentTenantId;
 
     public AppDbContext(
-        DbContextOptions<AppDbContext> options)
+        DbContextOptions<AppDbContext> options,
+        ICurrentTenantProvider currentTenantProvider)
         : base(options)
     {
+        _currentTenantProvider = currentTenantProvider;
     }
 
     protected override void OnModelCreating(ModelBuilder builder)

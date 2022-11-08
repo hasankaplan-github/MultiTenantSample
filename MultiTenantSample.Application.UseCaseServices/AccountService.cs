@@ -15,18 +15,21 @@ public class AccountService : IAccountService
 {
     private readonly AppDbContext _appDbContext;
     private readonly ITenantService _tenantService;
+    private readonly ICurrentTenantProvider _currentTenantProvider;
 
     public AccountService(
         AppDbContext appDbContext,
-        ITenantService tenantService)
+        ITenantService tenantService,
+        ICurrentTenantProvider currentTenantProvider)
     {
         _appDbContext = appDbContext;
         _tenantService = tenantService;
+        _currentTenantProvider = currentTenantProvider;
     }
 
     public LoginOutputDto Login(LoginInputDto loginInputDto)
     {
-        using (CurrentTenantProvider.ChangeCurrentTenant(loginInputDto.TenantId))
+        using (_currentTenantProvider.ChangeCurrentTenant(loginInputDto.TenantId))
         {
             var user = _appDbContext.User
                         .Where(x => x.Username == loginInputDto.Username && x.Password == loginInputDto.Password)

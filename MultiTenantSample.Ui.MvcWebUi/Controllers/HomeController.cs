@@ -13,22 +13,25 @@ public class HomeController : Controller
     private readonly ILogger<HomeController> _logger;
     private readonly ISomeService _someService;
     private readonly ITenantService _tenantService;
+    private readonly ICurrentTenantProvider _currentTenantProvider;
 
     public HomeController(
         ILogger<HomeController> logger,
         ISomeService someService,
-        ITenantService tenantService)
+        ITenantService tenantService,
+        ICurrentTenantProvider currentTenantProvider)
     {
         _logger = logger;
         _someService = someService;
         _tenantService = tenantService;
+        _currentTenantProvider = currentTenantProvider;
     }
 
     public IActionResult Index()
     {
-        if (CurrentTenantProvider.CurrentTenantId.HasValue)
+        if (_currentTenantProvider.CurrentTenantId.HasValue)
         {
-            ViewBag.CurrentTenantDto = _tenantService.GetTenantById(CurrentTenantProvider.CurrentTenantId.Value);
+            ViewBag.CurrentTenantDto = _tenantService.GetTenantById(_currentTenantProvider.CurrentTenantId.Value);
             ViewBag.SomeDataDto = _someService.GetSomeData();
         }
         

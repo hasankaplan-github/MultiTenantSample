@@ -12,9 +12,16 @@ public class MultiTenancyMiddleware
         _next = next;
     }
 
-    public async Task Invoke(HttpContext httpContext)
+    public async Task Invoke(
+        HttpContext httpContext,
+        ICurrentTenantProvider currentTenantProvider)
     {
-        using (CurrentTenantProvider.ChangeCurrentTenant(FindTenant(httpContext)))
+        //using (CurrentTenantProvider.ChangeCurrentTenant(FindTenant(httpContext)))
+        //{
+        //    await _next(httpContext);
+        //}
+
+        using (currentTenantProvider.ChangeCurrentTenant(FindTenant(httpContext)))
         {
             await _next(httpContext);
         }
