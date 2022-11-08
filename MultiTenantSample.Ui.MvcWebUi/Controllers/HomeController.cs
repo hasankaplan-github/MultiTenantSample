@@ -14,28 +14,40 @@ public class HomeController : Controller
     private readonly ISomeService _someService;
     private readonly ITenantService _tenantService;
     private readonly ICurrentTenantProvider _currentTenantProvider;
+    private readonly IEfCoreGlobalQueryFilterParameterStatusProvider _efCoreGlobalQueryFilterParameterStatusProvider;
 
     public HomeController(
         ILogger<HomeController> logger,
         ISomeService someService,
         ITenantService tenantService,
-        ICurrentTenantProvider currentTenantProvider)
+        ICurrentTenantProvider currentTenantProvider,
+        IEfCoreGlobalQueryFilterParameterStatusProvider efCoreGlobalQueryFilterParameterStatusProvider)
     {
         _logger = logger;
         _someService = someService;
         _tenantService = tenantService;
         _currentTenantProvider = currentTenantProvider;
+        _efCoreGlobalQueryFilterParameterStatusProvider = efCoreGlobalQueryFilterParameterStatusProvider;
     }
 
     public IActionResult Index()
     {
-        if (_currentTenantProvider.MultiTenancyIsEnabled)
+        if (_efCoreGlobalQueryFilterParameterStatusProvider.MultiTenancyIsEnabled)
         {
             ViewBag.CurrentTenantDto = _tenantService.GetTenantById(_currentTenantProvider.CurrentTenantId.Value);
             ViewBag.SomeDataDto = _someService.GetSomeData();
-            using (_currentTenantProvider.DisableMultiTenancy())
+            using (_efCoreGlobalQueryFilterParameterStatusProvider.DisableMultiTenancyFilter())
             {
-                ViewBag.SomeDataCount = _someService.GetSomeDataCount();
+                ViewBag.SomeDataCountWithoutMt= _someService.GetSomeDataCount();
+            }
+            ViewBag.SomeDataCount = _someService.GetSomeDataCount();
+            using (_efCoreGlobalQueryFilterParameterStatusProvider.DisableSoftDeleteFilter())
+            {
+                ViewBag.SomeDataCountWithDeleted = _someService.GetSomeDataCount();
+                using (_efCoreGlobalQueryFilterParameterStatusProvider.DisableMultiTenancyFilter())
+                {
+                    ViewBag.SomeDataCountWithDeletedAndWithoutMt = _someService.GetSomeDataCount();
+                }
             }
         }
         
