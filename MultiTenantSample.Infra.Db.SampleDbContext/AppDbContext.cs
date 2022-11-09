@@ -13,11 +13,13 @@ public class AppDbContext : BaseEfCoreNpgsqlDbContext
     public AppDbContext(
         DbContextOptions<AppDbContext> options,
         ICurrentTenantProvider currentTenantProvider,
-        IEfCoreGlobalQueryFilterParameterStatusProvider efCoreGlobalQueryFilterParameterStatusProvider)
+        IMultiTenancyGlobalQueryFilterParameterStatusProvider multiTenancyGlobalQueryFilterParameterStatusProvider,
+        ISoftDeleteGlobalQueryFilterParameterStatusProvider softDeleteGlobalQueryFilterParameterStatusProvider)
         : base(
             options, 
-            currentTenantProvider, 
-            efCoreGlobalQueryFilterParameterStatusProvider)
+            currentTenantProvider,
+            multiTenancyGlobalQueryFilterParameterStatusProvider,
+            softDeleteGlobalQueryFilterParameterStatusProvider)
     {
     }
 
