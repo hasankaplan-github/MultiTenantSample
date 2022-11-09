@@ -32,3 +32,33 @@ public class AppDbContext : BaseEfCoreNpgsqlDbContext
     public DbSet<Tenant> Tenant { get; set; }
     public DbSet<User> User { get; set; }
 }
+
+/*
+ protected bool IsActiveFilterEnabled => DataFilter?.IsEnabled<IIsActive>() ?? false;
+
+protected override bool ShouldFilterEntity<TEntity>(IMutableEntityType entityType)
+{
+    if (typeof(IIsActive).IsAssignableFrom(typeof(TEntity)))
+    {
+        return true;
+    }
+
+    return base.ShouldFilterEntity<TEntity>(entityType);
+}
+
+protected override Expression<Func<TEntity, bool>> CreateFilterExpression<TEntity>()
+{
+    var expression = base.CreateFilterExpression<TEntity>();
+
+    if (typeof(IIsActive).IsAssignableFrom(typeof(TEntity)))
+    {
+        Expression<Func<TEntity, bool>> isActiveFilter =
+            e => !IsActiveFilterEnabled || EF.Property<bool>(e, "IsActive");
+        expression = expression == null 
+            ? isActiveFilter 
+            : CombineExpressions(expression, isActiveFilter);
+    }
+
+    return expression;
+}
+ */
