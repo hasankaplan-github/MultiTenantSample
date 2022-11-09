@@ -32,7 +32,7 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        if (_efCoreGlobalQueryFilterParameterStatusProvider.MultiTenancyIsEnabled)
+        if (_efCoreGlobalQueryFilterParameterStatusProvider.MultiTenancyFilterIsEnabled)
         {
             ViewBag.CurrentTenantDto = _tenantService.GetTenantById(_currentTenantProvider.CurrentTenantId.Value);
             ViewBag.SomeDataDto = _someService.GetSomeData();
