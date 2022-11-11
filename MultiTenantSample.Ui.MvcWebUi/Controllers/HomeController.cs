@@ -1,4 +1,5 @@
-﻿using Haskap.DddBase.Domain.Providers;
+﻿using Haskap.DddBase.Domain;
+using Haskap.DddBase.Domain.Providers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MultiTenantSample.Application.Contracts;
@@ -14,46 +15,40 @@ public class HomeController : Controller
     private readonly ISomeService _someService;
     private readonly ITenantService _tenantService;
     private readonly ICurrentTenantProvider _currentTenantProvider;
-    private readonly IMultiTenancyGlobalQueryFilterParameterStatusProvider _multiTenancyGlobalQueryFilterParameterStatusProvider;
-    private readonly ISoftDeleteGlobalQueryFilterParameterStatusProvider _softDeleteGlobalQueryFilterParameterStatusProvider;
+    private readonly IGlobalQueryFilterParameterStatusCollectionProvider _globalQueryFilterParameterStatusCollectionProvider;
 
     public HomeController(
         ILogger<HomeController> logger,
         ISomeService someService,
         ITenantService tenantService,
         ICurrentTenantProvider currentTenantProvider,
-        IMultiTenancyGlobalQueryFilterParameterStatusProvider multiTenancyGlobalQueryFilterParameterStatusProvider,
-        ISoftDeleteGlobalQueryFilterParameterStatusProvider softDeleteGlobalQueryFilterParameterStatusProvider)
+        IGlobalQueryFilterParameterStatusCollectionProvider globalQueryFilterParameterStatusCollectionProvider)
     {
         _logger = logger;
         _someService = someService;
         _tenantService = tenantService;
         _currentTenantProvider = currentTenantProvider;
-        _multiTenancyGlobalQueryFilterParameterStatusProvider = multiTenancyGlobalQueryFilterParameterStatusProvider;
-        _softDeleteGlobalQueryFilterParameterStatusProvider = softDeleteGlobalQueryFilterParameterStatusProvider;
+        _globalQueryFilterParameterStatusCollectionProvider = globalQueryFilterParameterStatusCollectionProvider;
     }
 
     public IActionResult Index()
     {
-        if (_multiTenancyGlobalQueryFilterParameterStatusProvider.IsEnabled)
+        ViewBag.CurrentTenantDto = _tenantService.GetTenantById(_currentTenantProvider.CurrentTenantId ?? Guid.Empty);
+        ViewBag.SomeDataDto = _someService.GetSomeData();
+        using (_globalQueryFilterParameterStatusCollectionProvider.Disable<IHasMultiTenant>())
         {
-            ViewBag.CurrentTenantDto = _tenantService.GetTenantById(_currentTenantProvider.CurrentTenantId.Value);
-            ViewBag.SomeDataDto = _someService.GetSomeData();
-            using (_multiTenancyGlobalQueryFilterParameterStatusProvider.DisableFilterParameter())
+            ViewBag.SomeDataCountWithoutMt = _someService.GetSomeDataCount();
+        }
+        ViewBag.SomeDataCount = _someService.GetSomeDataCount();
+        using (_globalQueryFilterParameterStatusCollectionProvider.Disable<ISoftDeletable>())
+        {
+            ViewBag.SomeDataCountWithDeleted = _someService.GetSomeDataCount();
+            using (_globalQueryFilterParameterStatusCollectionProvider.Disable<IHasMultiTenant>())
             {
-                ViewBag.SomeDataCountWithoutMt= _someService.GetSomeDataCount();
-            }
-            ViewBag.SomeDataCount = _someService.GetSomeDataCount();
-            using (_softDeleteGlobalQueryFilterParameterStatusProvider.DisableFilterParameter())
-            {
-                ViewBag.SomeDataCountWithDeleted = _someService.GetSomeDataCount();
-                using (_multiTenancyGlobalQueryFilterParameterStatusProvider.DisableFilterParameter())
-                {
-                    ViewBag.SomeDataCountWithDeletedAndWithoutMt = _someService.GetSomeDataCount();
-                }
+                ViewBag.SomeDataCountWithDeletedAndWithoutMt = _someService.GetSomeDataCount();
             }
         }
-        
+
         return View();
     }
 

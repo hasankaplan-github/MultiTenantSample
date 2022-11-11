@@ -34,7 +34,7 @@ public class TenantService : ITenantService
                 TenantId = x.Id,
                 TenantName = x.Name
             })
-            .First();
+            .FirstOrDefault();
 
         return tenantDto;
     }

@@ -3,8 +3,8 @@ using MultiTenantSample.Infra.Db.SampleDbContext;
 using Microsoft.EntityFrameworkCore;
 using MultiTenantSample.Ui.MvcWebUi;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using MultiTenantSample.Ui.MvcWebUi.Middlewares;
 using Haskap.DddBase.Domain.Providers;
+using Haskap.DddBase.Presentation.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -50,7 +50,8 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseMiddleware<MultiTenancyMiddleware>();
+app.UseSoftDelete();
+app.UseMultiTenancy();
 
 
 app.MapControllerRoute(
