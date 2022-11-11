@@ -1,13 +1,14 @@
 ﻿using Haskap.DddBase.Domain;
 
 namespace MultiTenantSample.Domain;
-public class SomeTenantDataClass : AggregateRoot, IHasMultiTenant, ISoftDeletable
+public class SomeTenantDataClass : AggregateRoot, IHasMultiTenant, ISoftDeletable, IIsActive
 {
     public int MyProperty { get; private set; }
 	public Guid? TenantId { get; set; }
 	public bool IsDeleted { get; set; }
+    public bool IsActive { get; set; }
 
-	private SomeTenantDataClass()
+    private SomeTenantDataClass()
 	{
 	}
 

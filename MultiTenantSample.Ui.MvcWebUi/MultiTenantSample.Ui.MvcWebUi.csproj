@@ -23,8 +23,10 @@
     <ProjectReference Include="..\MultiTenantSample.Application.Contracts\MultiTenantSample.Application.Contracts.csproj" />
     <ProjectReference Include="..\MultiTenantSample.Application.Dtos\MultiTenantSample.Application.Dtos.csproj" />
     <ProjectReference Include="..\MultiTenantSample.Application.UseCaseServices\MultiTenantSample.Application.UseCaseServices.csproj" />
+    <ProjectReference Include="..\MultiTenantSample.Domain.Providers\MultiTenantSample.Domain.Providers.csproj" />
     <ProjectReference Include="..\MultiTenantSample.Domain\MultiTenantSample.Domain.csproj" />
     <ProjectReference Include="..\MultiTenantSample.Infra.Db.SampleDbContext\MultiTenantSample.Infra.Db.SampleDbContext.csproj" />
+    <ProjectReference Include="..\MultiTenantSample.Infra.Providers\MultiTenantSample.Infra.Providers.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -46,10 +48,6 @@
     <Reference Include="Haskap.DddBase.Presentation">
       <HintPath>..\References\Haskap.DddBase.Presentation.dll</HintPath>
     </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Middlewares\" />
   </ItemGroup>
 
 </Project>

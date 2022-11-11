@@ -17,14 +17,14 @@ public class SomeService : ISomeService
         _appDbContext = appDbContext;
     }
 
-    public SomeDataDto GetSomeData()
+    public SomeDataDto? GetSomeData()
     {
         return _appDbContext.SomeTenantDataClass
             .Select(x => new SomeDataDto
             {
                 MyProperty = x.MyProperty
             })
-            .First();
+            .FirstOrDefault();
             
     }
 

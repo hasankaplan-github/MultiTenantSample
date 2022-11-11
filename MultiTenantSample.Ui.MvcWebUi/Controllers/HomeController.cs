@@ -3,6 +3,7 @@ using Haskap.DddBase.Domain.Providers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MultiTenantSample.Application.Contracts;
+using MultiTenantSample.Domain;
 using MultiTenantSample.Models;
 using System.Diagnostics;
 
@@ -46,6 +47,10 @@ public class HomeController : Controller
             using (_globalQueryFilterParameterStatusCollectionProvider.Disable<IHasMultiTenant>())
             {
                 ViewBag.SomeDataCountWithDeletedAndWithoutMt = _someService.GetSomeDataCount();
+                using (_globalQueryFilterParameterStatusCollectionProvider.Disable<IIsActive>())
+                {
+                    ViewBag.SomeDataCountWithDeletedAndWithoutMtAndIsNotActive = _someService.GetSomeDataCount();
+                }
             }
         }
 

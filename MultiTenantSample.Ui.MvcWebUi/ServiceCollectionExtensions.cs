@@ -1,6 +1,8 @@
 ﻿using Haskap.DddBase.Domain.Providers;
 using MultiTenantSample.Application.UseCaseServices;
 using MultiTenantSample.Application.Contracts;
+using MultiTenantSample.Domain.Providers;
+using MultiTenantSample.Infra.Providers;
 
 namespace MultiTenantSample.Ui.MvcWebUi;
 
@@ -22,6 +24,7 @@ public static class ServiceCollectionExtensions
     {
         //services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
         //services.AddSingleton<IJwtProvider, JwtProvider>();
+        services.AddScoped<IIsActiveGlobalQueryFilterParameterStatusProvider, IsActiveGlobalQueryFilterParameterStatusProvider>();
     }
 
     public static void AddEfInterceptors(this IServiceCollection services)

@@ -5,11 +5,13 @@ using MultiTenantSample.Ui.MvcWebUi;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Haskap.DddBase.Domain.Providers;
 using Haskap.DddBase.Presentation.Middlewares;
+using MultiTenantSample.Ui.MvcWebUi.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddBaseProviders<Guid>();
+builder.Services.AddProviders();
 builder.Services.AddUseCaseServices();
 
 var connectionString = builder.Configuration.GetConnectionString("SampleConnectionString");
@@ -52,6 +54,7 @@ app.UseAuthorization();
 
 app.UseSoftDelete();
 app.UseMultiTenancy();
+app.UseIsActive();
 
 
 app.MapControllerRoute(

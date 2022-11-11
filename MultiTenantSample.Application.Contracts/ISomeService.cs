@@ -8,6 +8,6 @@ using System.Threading.Tasks;
 namespace MultiTenantSample.Application.Contracts;
 public interface ISomeService
 {
-    SomeDataDto GetSomeData();
+    SomeDataDto? GetSomeData();
     int GetSomeDataCount();
 }
